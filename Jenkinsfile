@@ -1,5 +1,5 @@
 pipeline{
-  agen any
+  agent any
   stages{
     stage('Hello from github'){
        steps{
