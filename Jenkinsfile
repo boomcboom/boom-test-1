@@ -1,10 +1,30 @@
 pipeline{
   agent any
+  tools{
+    maven 'M3'
+   }
   stages{
-    stage('Hello from github'){
+    stage('git checkout'){
        steps{
-	 echo "Hello World!"
+	 git 'https://github.com/boomcboom/boom-test-1.git'
 	}
-    }		
+    }
+    stage('Build'){
+       steps{
+         sh 'mvn clean compile'
+      }
+    }
+    stage('Test'){
+      steps{
+         sh 'mvn test'
+         junit '**/target/surefire-reports/TEST-*.xml'
+       }
+     }
+    stage('Package'){
+      steps{
+       sh 'mvn package'
+
+      }
+    }	
   }	
 }
